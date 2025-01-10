@@ -1,7 +1,12 @@
 import React from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 function Navbar() {
+  // These all are prebuild for us inside the inertia
+  // We are checking if the user is already login or not
+  const { auth } = usePage().props;
+  const { user } = auth;
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
@@ -43,7 +48,7 @@ function Navbar() {
             </div>
           </div>
         </div>
-        <div className="dropdown dropdown-end">
+        {user && <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
             role="button"
@@ -72,7 +77,19 @@ function Navbar() {
               </Link>
             </li>
           </ul>
-        </div>
+        </div>}
+        {!user && (
+          <div className="flex-none">
+            <ul className="menu menu-horizontal px-1">
+              <li>
+                <Link href={route("login")}>Login</Link>
+              </li>
+              <li>
+                <Link href={route("register")}>Register</Link>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
