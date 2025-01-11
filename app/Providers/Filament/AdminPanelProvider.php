@@ -18,6 +18,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Database\Eloquent\Model;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -61,6 +63,11 @@ class AdminPanelProvider extends PanelProvider
             //     Authenticate::class,
             // ])
             ;
+    }
+    
+    public function boot(): void
+    {
+        Model::unguard();
     }
     
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,7 +17,9 @@ class DatabaseSeeder extends Seeder
         // Here call methods is execute to seed other seeder 
         $this->call([
             RoleSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            DepartmentSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }
