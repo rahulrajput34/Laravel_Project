@@ -21,14 +21,24 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use Filament\Facades\Filament;
 use App\Enums\RolesEnum;
+use App\Filament\Resources\ProductResource\Pages\EditProduct;
+use App\Filament\Resources\ProductResource\Pages\ImagesProduct;
+use Filament\Pages\SubNavigationPosition;
+use Filament\Resources\Pages\Page;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Filters\SelectFilter;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-queue-list';
 
+    
+
+    // We want the edit icon on the right side of the webpage that's why we gave this one
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
+    
     // Form to create the products
     public static function form(Form $form): Form
     {
@@ -111,6 +121,11 @@ class ProductResource extends Resource
         // UI of it (table schema interface)
         return $table
             ->columns([
+                SpatieMediaLibraryImageColumn::make('images')
+                    ->collection('images')
+                    ->limit(1)
+                    ->label('Image')
+                    ->conversion('thumb'),
                 TextColumn::make('title')
                     ->sortable()
                     ->words(10)
@@ -155,7 +170,16 @@ class ProductResource extends Resource
             'index' => Pages\ListProducts::route('/'),
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'images' => Pages\ImagesProduct::route('/{record}/images'),
         ];
+    }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+                EditProduct::class,
+                ImagesProduct::class
+            ]);
     }
 
     // Only vendor can create the product
