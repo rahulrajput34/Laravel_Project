@@ -12,13 +12,18 @@ class ImagesProduct extends EditRecord
 {
     protected static string $resource = ProductResource::class;
 
+    // we can change the title of this page as well
+    protected static ?string $title = 'Images';
+
     protected static ?string $navigationIcon = 'heroicon-c-photo';
+
     // Another form for the uploading the images
     public function form(Form $form): Form
     {
         return $form
             ->schema([
                 SpatieMediaLibraryFileUpload::make('images')
+                    ->label(false)
                     ->image()
                     ->multiple()
                     ->openable()

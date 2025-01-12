@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums\Enums;
+namespace App\Enums;
 
 enum ProductStatusEnum: string
 {
@@ -15,8 +15,9 @@ enum ProductStatusEnum: string
         ];
     }
 
-    public static function colors(){
-        return[
+    public static function colors()
+    {
+        return [
             'gray' => self::Draft->value,
             'success' => self::Published->value
         ];

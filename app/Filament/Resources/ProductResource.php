@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\Enums\ProductStatusEnum;
+use App\Enums\ProductStatusEnum;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
@@ -23,6 +23,7 @@ use Filament\Facades\Filament;
 use App\Enums\RolesEnum;
 use App\Filament\Resources\ProductResource\Pages\EditProduct;
 use App\Filament\Resources\ProductResource\Pages\ImagesProduct;
+use App\Filament\Resources\ProductResource\Pages\ProductVariationTypes;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Pages\Page;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
@@ -171,6 +172,7 @@ class ProductResource extends Resource
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
             'images' => Pages\ImagesProduct::route('/{record}/images'),
+            'variation-types' => Pages\ProductVariationTypes::route('/{record}/variation-types'),
         ];
     }
 
@@ -178,7 +180,8 @@ class ProductResource extends Resource
     {
         return $page->generateNavigationItems([
                 EditProduct::class,
-                ImagesProduct::class
+                ImagesProduct::class,
+                ProductVariationTypes::class
             ]);
     }
 
